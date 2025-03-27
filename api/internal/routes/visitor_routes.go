@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"VisitorCounter/internal/services"
+	"github.com/MagnusHLund/VisitorCounter/internal/services"
 
 	"github.com/go-chi/chi/v5"
 )

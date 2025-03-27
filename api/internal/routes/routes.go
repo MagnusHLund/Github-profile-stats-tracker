@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"VisitorCounter/internal/services"
+	"github.com/MagnusHLund/VisitorCounter/internal/services"
 	"log"
 	"net/http"
 

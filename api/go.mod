@@ -1,4 +1,4 @@
-module VisitorCounter
+module github.com/MagnusHLund/VisitorCounter
 
 go 1.24.1
 

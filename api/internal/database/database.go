@@ -1,8 +1,9 @@
 package database
 
 import (
-	"VisitorCounter/internal/config"
 	"fmt"
+
+	"github.com/MagnusHLund/VisitorCounter/internal/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

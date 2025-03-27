@@ -7,9 +7,9 @@
 package wire
 
 import (
-	"VisitorCounter/internal/config"
-	"VisitorCounter/internal/database"
-	"VisitorCounter/internal/services"
+	"github.com/MagnusHLund/VisitorCounter/internal/config"
+	"github.com/MagnusHLund/VisitorCounter/internal/database"
+	"github.com/MagnusHLund/VisitorCounter/internal/services"
 )
 
 // Injectors from wire.go:

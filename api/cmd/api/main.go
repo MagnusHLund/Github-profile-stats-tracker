@@ -1,10 +1,11 @@
 package main
 
 import (
-	"VisitorCounter/internal/routes"
-	"VisitorCounter/internal/wire"
 	"log"
 	"net/http"
+
+	"github.com/MagnusHLund/VisitorCounter/internal/routes"
+	"github.com/MagnusHLund/VisitorCounter/internal/wire"
 )
 
 func main() {
