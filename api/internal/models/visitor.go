@@ -6,5 +6,5 @@ type Visitor struct {
 	TotalVisits     uint32 `gorm:"not null"`
 	FirstVisit      uint   `gorm:"not null"`
 	LatestVisit     uint   `gorm:"not null"`
-	HashedIpAddress string `gorm:"not null;uniqueIndex:idx_hashedip_pageid"`
+	HashedIpAddress string `gorm:"not null;uniqueIndex:idx_hashedip_pageid"` // TODO: Modify max length
 }

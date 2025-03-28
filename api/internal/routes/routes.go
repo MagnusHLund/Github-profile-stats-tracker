@@ -1,29 +1,27 @@
 package routes
 
 import (
-	"github.com/MagnusHLund/VisitorCounter/internal/services"
-	"log"
-	"net/http"
+	"github.com/MagnusHLund/VisitorCounter/internal/middleware"
+	"github.com/MagnusHLund/VisitorCounter/internal/wire"
 
 	"github.com/go-chi/chi/v5"
 )
 
-func SetupRoutes(app *services.VisitorService) *chi.Mux {
+func SetupRoutes(app *wire.App) *chi.Mux {
 	router := chi.NewRouter()
 
-	router.Use(loggingMiddleware)
+	applyMiddleware(router)
 
-	router.Mount("/page", SetupPageRoutes(app))
-	router.Mount("/visitor", SetupVisitorRoutes(app))
+	pageHandler := handlers.NewPageHandler(app.Handlers.PageHandler.DB)
+	visitorHandler := handlers.NewVisitorHandler(app.Handlers.VisitorHandler.DB)
+
+	router.Mount("/page", SetupPageRoutes(pageHandler))
+	router.Mount("/visitor", SetupVisitorRoutes(visitorHandler))
 
 	return router
 }
 
-// TODO: Put middleware in its own package
-func loggingMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Log request details
-		log.Printf("Method: %s, Path: %s", r.Method, r.URL.Path)
-		next.ServeHTTP(w, r)
-	})
+func applyMiddleware(router *chi.Mux) {
+	router.Use(middleware.ExceptionMiddleware)
+	router.Use(middleware.JSONMiddleware)
 }

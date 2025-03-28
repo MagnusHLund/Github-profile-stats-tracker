@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
 	"github.com/MagnusHLund/VisitorCounter/internal/routes"
 	"github.com/MagnusHLund/VisitorCounter/internal/wire"
 )
@@ -14,7 +15,7 @@ func main() {
 		log.Fatal("Failed to create app: ", err)
 	}
 
-	router := routes.SetupRoutes(app)
+	router := routes.SetupRoutes(&app.Handlers)
 	startServer(router)
 }
 
