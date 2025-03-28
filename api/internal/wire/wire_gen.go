@@ -10,6 +10,7 @@ import (
 	"github.com/MagnusHLund/VisitorCounter/internal/config"
 	"github.com/MagnusHLund/VisitorCounter/internal/database"
 	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
+	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 	"github.com/MagnusHLund/VisitorCounter/internal/services"
 )
 
@@ -23,9 +24,11 @@ func CreateApp() (*App, error) {
 		return nil, err
 	}
 	pageHandler := handlers.NewPageHandler(db)
-	visitorHandler := handlers.NewVisitorHandler(db)
 	pageService := services.NewPageService(db)
+	visitorHandler := handlers.NewVisitorHandler(db)
 	visitorService := services.NewVisitorService(db)
-	app := NewApp(pageHandler, visitorHandler, pageService, visitorService)
+	pageRepository := repositories.NewPageRepository(db)
+	visitorRepository := repositories.NewVisitorRepository(db)
+	app := NewApp(configConfig, pageHandler, pageService, visitorHandler, visitorService, pageRepository, visitorRepository)
 	return app, nil
 }

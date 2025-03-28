@@ -12,8 +12,8 @@ func SetupRoutes(app *wire.App) *chi.Mux {
 
 	applyMiddleware(router)
 
-	pageHandler := handlers.NewPageHandler(app.Handlers.PageHandler.DB)
-	visitorHandler := handlers.NewVisitorHandler(app.Handlers.VisitorHandler.DB)
+	pageHandler := app.Handlers.PageHandler
+	visitorHandler := app.Handlers.VisitorHandler
 
 	router.Mount("/page", SetupPageRoutes(pageHandler))
 	router.Mount("/visitor", SetupVisitorRoutes(visitorHandler))

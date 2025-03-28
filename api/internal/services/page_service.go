@@ -15,7 +15,7 @@ func NewPageService(db *gorm.DB) *PageService {
 	return &PageService{db: db}
 }
 
-func (vs *VisitorService) CreatePageHandler(w http.ResponseWriter, r *http.Request) {
+func (ps *PageService) GetPagesHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"message": "Page created"})
+	json.NewEncoder(w).Encode(map[string]string{"message": "List of pages"})
 }

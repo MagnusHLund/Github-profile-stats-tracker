@@ -20,6 +20,6 @@ func (h *VisitorHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Reque
 }
 
 func (h *VisitorHandler) CreateVisitor(w http.ResponseWriter, r *http.Request) {
-	// Business logic here
+	
 	w.Write([]byte("Handle POST /visitor"))
 }

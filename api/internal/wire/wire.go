@@ -7,6 +7,7 @@ import (
 	"github.com/MagnusHLund/VisitorCounter/internal/config"
 	"github.com/MagnusHLund/VisitorCounter/internal/database"
 	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
+	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 	"github.com/MagnusHLund/VisitorCounter/internal/services"
 
 	"github.com/google/wire"
@@ -21,6 +22,8 @@ func CreateApp() (*App, error) {
 		services.NewPageService,
 		handlers.NewPageHandler,
 		handlers.NewVisitorHandler,
+		repositories.NewPageRepository,
+		repositories.NewVisitorRepository,
 		NewApp,
 	)
 

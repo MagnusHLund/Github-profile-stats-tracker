@@ -29,14 +29,14 @@ func NewDatabase(cfg *config.Config) (*gorm.DB, error) {
 }
 
 func createDatabaseIfNotExists(cfg *config.Config) error {
-	dsnWithoutDB := fmt.Sprintf("%s:%s@tcp(%s:%s)/?charset=utf8mb4&parseTime=True&loc=Local",
-		cfg.DBUser, cfg.DBPass, cfg.DBHost, cfg.DBPort)
+	dsnWithoutDB := getConnectionString(cfg, false)
+
 	tempDB, err := gorm.Open(mysql.Open(dsnWithoutDB), &gorm.Config{})
 	if err != nil {
 		return err
 	}
 
-	createDBQuery := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s", cfg.DBName)
+	createDBQuery := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s", cfg.DatabaseConfig.DBName)
 	if err := tempDB.Exec(createDBQuery).Error; err != nil {
 		return err
 	}
@@ -45,8 +45,7 @@ func createDatabaseIfNotExists(cfg *config.Config) error {
 }
 
 func connectToDatabase(cfg *config.Config) (*gorm.DB, error) {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		cfg.DBUser, cfg.DBPass, cfg.DBHost, cfg.DBPort, cfg.DBName)
+	dsn := getConnectionString(cfg, true)
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -66,4 +65,20 @@ func migrateDatabase(db *gorm.DB) error {
 	}
 
 	return nil
+}
+
+func getConnectionString(cfg *config.Config, databaseExists bool) string {
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/",
+		cfg.DatabaseConfig.DBUser,
+		cfg.DatabaseConfig.DBPass,
+		cfg.DatabaseConfig.DBHost,
+		cfg.DatabaseConfig.DBPort,
+	)
+
+	if databaseExists {
+		dsn += cfg.DatabaseConfig.DBName
+	}
+
+	dsn += "?charset=utf8mb4&parseTime=True&loc=Local"
+	return dsn
 }

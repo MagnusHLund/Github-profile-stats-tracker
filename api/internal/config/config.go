@@ -1,13 +1,17 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 type Config struct {
+	DatabaseConfig DatabaseConfig
+	ServerConfig   ServerConfig
+}
+
+type DatabaseConfig struct {
 	DBUser string
 	DBPass string
 	DBHost string
@@ -15,17 +19,59 @@ type Config struct {
 	DBName string
 }
 
+type ServerConfig struct {
+	ServerPort string
+}
+
 func NewConfig() *Config {
-	err := godotenv.Load(".env")
+	databaseConfig, err := initializeDatabaseConfig()
 	if err != nil {
-		log.Fatal("Error loading .env file: ", err)
+		log.Fatal(fmt.Errorf("failed to initialize database config: %w", err))
+	}
+
+	serverConfig, err := initializeServerConfig()
+	if err != nil {
+		log.Fatal(fmt.Errorf("failed to initialize server config: %w", err))
 	}
 
 	return &Config{
-		DBUser: os.Getenv("DB_USER"),
-		DBPass: os.Getenv("DB_PASS"),
-		DBHost: os.Getenv("DB_HOST"),
-		DBPort: os.Getenv("DB_PORT"),
-		DBName: os.Getenv("DB_NAME"),
+		DatabaseConfig: *databaseConfig,
+		ServerConfig:   *serverConfig,
 	}
+}
+
+func initializeDatabaseConfig() (*DatabaseConfig, error) {
+	dbUser := getEnv("DB_USER", "")
+	dbPass := getEnv("DB_PASS", "")
+	dbHost := getEnv("DB_HOST", "")
+	dbPort := getEnv("DB_PORT", "")
+	dbName := getEnv("DB_NAME", "")
+
+	return &DatabaseConfig{
+		DBUser: dbUser,
+		DBPass: dbPass,
+		DBHost: dbHost,
+		DBPort: dbPort,
+		DBName: dbName,
+	}, nil
+}
+
+func initializeServerConfig() (*ServerConfig, error) {
+	serverPort := getEnv("SERVER_PORT", "8080")
+
+	return &ServerConfig{
+		ServerPort: serverPort,
+	}, nil
+}
+
+func getEnv(key, defaultValue string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+
+	if defaultValue == "" {
+		log.Fatal(fmt.Errorf("environment variable %s is required but not set", key))
+	}
+
+	return defaultValue
 }

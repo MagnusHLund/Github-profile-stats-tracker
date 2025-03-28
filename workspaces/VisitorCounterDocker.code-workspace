@@ -1,0 +1,9 @@
+{
+  "folders": [
+    {
+      "path": "./../docker/",
+      "name": "VisitorCounterDocker"
+    }
+  ],
+  "settings": {}
+}

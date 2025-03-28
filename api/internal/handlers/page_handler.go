@@ -14,7 +14,7 @@ func NewPageHandler(db *gorm.DB) *PageHandler {
 	return &PageHandler{DB: db}
 }
 
-func (h *PageHandler) CreatePage(w http.ResponseWriter, r *http.Request) {
+func (h *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
 	// Business logic here
 	w.Write([]byte("Handle POST /page"))
 }
