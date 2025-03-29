@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"gorm.io/gorm"
+	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 )
 
 type VisitorService struct {
-	db *gorm.DB
+	VisitorRepository *repositories.VisitorRepository
 }
 
-func NewVisitorService(db *gorm.DB) *VisitorService {
-	return &VisitorService{db: db}
+func NewVisitorService(visitorRepository *repositories.VisitorRepository) *VisitorService {
+	return &VisitorService{VisitorRepository: visitorRepository}
 }
 
 func (vs *VisitorService) CreateVisitorHandler(w http.ResponseWriter, r *http.Request) {

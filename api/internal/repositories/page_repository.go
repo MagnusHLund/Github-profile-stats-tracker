@@ -1,6 +1,9 @@
 package repositories
 
-import "gorm.io/gorm"
+import (
+	"github.com/MagnusHLund/VisitorCounter/internal/models"
+	"gorm.io/gorm"
+)
 
 type PageRepository struct {
 	DB *gorm.DB
@@ -8,4 +11,12 @@ type PageRepository struct {
 
 func NewPageRepository(db *gorm.DB) *PageRepository {
 	return &PageRepository{DB: db}
+}
+
+func (r *PageRepository) GetPageByURL(url string) (*models.Page, error) {
+	var page models.Page
+	if err := r.DB.Where("url = ?", url).First(&page).Error; err != nil {
+		return nil, err
+	}
+	return &page, nil
 }

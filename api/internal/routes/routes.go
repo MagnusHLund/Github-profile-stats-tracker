@@ -13,10 +13,8 @@ func SetupRoutes(app *wire.App) *chi.Mux {
 	applyMiddleware(router)
 
 	pageHandler := app.Handlers.PageHandler
-	visitorHandler := app.Handlers.VisitorHandler
 
 	router.Mount("/page", SetupPageRoutes(pageHandler))
-	router.Mount("/visitor", SetupVisitorRoutes(visitorHandler))
 
 	return router
 }

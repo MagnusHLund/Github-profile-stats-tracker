@@ -18,10 +18,9 @@ func CreateApp() (*App, error) {
 	wire.Build(
 		config.NewConfig,
 		database.NewDatabase,
-		services.NewVisitorService,
-		services.NewPageService,
 		handlers.NewPageHandler,
-		handlers.NewVisitorHandler,
+		services.NewPageService,
+		services.NewVisitorService,
 		repositories.NewPageRepository,
 		repositories.NewVisitorRepository,
 		NewApp,

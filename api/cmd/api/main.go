@@ -14,14 +14,13 @@ func main() {
 		log.Fatal("Failed to create app: ", err)
 	}
 
+	port := app.Config.Config.ServerConfig.ServerPort
 	router := routes.SetupRoutes(app)
 
-	startServer(router)
+	startServer(router, port)
 }
 
-func startServer(router http.Handler) {
-	var port string = "8080" // TODO: use environment variables
-
+func startServer(router http.Handler, port string) {
 	log.Println("Starting server on port", port+"...")
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

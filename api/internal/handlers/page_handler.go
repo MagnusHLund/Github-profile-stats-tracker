@@ -3,18 +3,17 @@ package handlers
 import (
 	"net/http"
 
-	"gorm.io/gorm"
+	"github.com/MagnusHLund/VisitorCounter/internal/services"
 )
 
 type PageHandler struct {
-	DB *gorm.DB
+	PageService *services.PageService
 }
 
-func NewPageHandler(db *gorm.DB) *PageHandler {
-	return &PageHandler{DB: db}
+func NewPageHandler(pageService *services.PageService) *PageHandler {
+	return &PageHandler{PageService: pageService}
 }
 
 func (h *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
-	// Business logic here
-	w.Write([]byte("Handle POST /page"))
+	w.Write([]byte("Handle GET GET /page"))
 }

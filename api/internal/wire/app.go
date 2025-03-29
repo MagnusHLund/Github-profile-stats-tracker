@@ -8,7 +8,7 @@ import (
 )
 
 type App struct {
-	config       *Config
+	Config       *Config
 	Services     *Services
 	Handlers     *Handlers
 	Repositories *Repositories
@@ -19,8 +19,7 @@ type Config struct {
 }
 
 type Handlers struct {
-	PageHandler    *handlers.PageHandler
-	VisitorHandler *handlers.VisitorHandler
+	PageHandler *handlers.PageHandler
 }
 
 type Services struct {
@@ -37,18 +36,16 @@ func NewApp(
 	config *config.Config,
 	pageHandler *handlers.PageHandler,
 	pageService *services.PageService,
-	visitorHandler *handlers.VisitorHandler,
 	visitorService *services.VisitorService,
 	pageRepository *repositories.PageRepository,
 	visitorRepository *repositories.VisitorRepository,
 ) *App {
 	return &App{
-		config: &Config{
+		Config: &Config{
 			Config: config,
 		},
 		Handlers: &Handlers{
-			PageHandler:    pageHandler,
-			VisitorHandler: visitorHandler,
+			PageHandler: pageHandler,
 		},
 		Services: &Services{
 			PageService:    pageService,

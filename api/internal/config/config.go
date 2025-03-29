@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -24,6 +26,11 @@ type ServerConfig struct {
 }
 
 func NewConfig() *Config {
+	err := godotenv.Load("./../../.env")
+	if err != nil {
+		log.Fatal(fmt.Errorf(".env file not found or could not be loaded: %w", err))
+	}
+
 	databaseConfig, err := initializeDatabaseConfig()
 	if err != nil {
 		log.Fatal(fmt.Errorf("failed to initialize database config: %w", err))

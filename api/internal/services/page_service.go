@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"gorm.io/gorm"
+	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 )
 
 type PageService struct {
-	db *gorm.DB
+	PageRepository *repositories.PageRepository
 }
 
-func NewPageService(db *gorm.DB) *PageService {
-	return &PageService{db: db}
+func NewPageService(PageRepository *repositories.PageRepository) *PageService {
+	return &PageService{PageRepository: PageRepository}
 }
 
 func (ps *PageService) GetPagesHandler(w http.ResponseWriter, r *http.Request) {

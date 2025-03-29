@@ -23,12 +23,11 @@ func CreateApp() (*App, error) {
 	if err != nil {
 		return nil, err
 	}
-	pageHandler := handlers.NewPageHandler(db)
-	pageService := services.NewPageService(db)
-	visitorHandler := handlers.NewVisitorHandler(db)
-	visitorService := services.NewVisitorService(db)
 	pageRepository := repositories.NewPageRepository(db)
+	pageService := services.NewPageService(pageRepository)
+	pageHandler := handlers.NewPageHandler(pageService)
 	visitorRepository := repositories.NewVisitorRepository(db)
-	app := NewApp(configConfig, pageHandler, pageService, visitorHandler, visitorService, pageRepository, visitorRepository)
+	visitorService := services.NewVisitorService(visitorRepository)
+	app := NewApp(configConfig, pageHandler, pageService, visitorService, pageRepository, visitorRepository)
 	return app, nil
 }
