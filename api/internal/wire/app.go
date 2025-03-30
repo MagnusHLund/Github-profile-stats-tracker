@@ -5,6 +5,7 @@ import (
 	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
 	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 	"github.com/MagnusHLund/VisitorCounter/internal/services"
+	"github.com/MagnusHLund/VisitorCounter/internal/utils"
 )
 
 type App struct {
@@ -12,6 +13,7 @@ type App struct {
 	Services     *Services
 	Handlers     *Handlers
 	Repositories *Repositories
+	Utils        *Utils
 }
 
 type Config struct {
@@ -32,6 +34,10 @@ type Repositories struct {
 	VisitorRepository *repositories.VisitorRepository
 }
 
+type Utils struct {
+	RequestUtils *utils.RequestUtils
+}
+
 func NewApp(
 	config *config.Config,
 	pageHandler *handlers.PageHandler,
@@ -39,6 +45,7 @@ func NewApp(
 	visitorService *services.VisitorService,
 	pageRepository *repositories.PageRepository,
 	visitorRepository *repositories.VisitorRepository,
+	requestUtils *utils.RequestUtils,
 ) *App {
 	return &App{
 		Config: &Config{
@@ -54,6 +61,9 @@ func NewApp(
 		Repositories: &Repositories{
 			PageRepository:    pageRepository,
 			VisitorRepository: visitorRepository,
+		},
+		Utils: &Utils{
+			RequestUtils: requestUtils,
 		},
 	}
 }

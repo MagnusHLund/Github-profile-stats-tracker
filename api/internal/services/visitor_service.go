@@ -1,21 +1,19 @@
 package services
 
 import (
-	"encoding/json"
-	"net/http"
-
 	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 )
 
 type VisitorService struct {
 	VisitorRepository *repositories.VisitorRepository
+	HashingService    *HashingService
 }
 
-func NewVisitorService(visitorRepository *repositories.VisitorRepository) *VisitorService {
-	return &VisitorService{VisitorRepository: visitorRepository}
+func NewVisitorService(visitorRepository *repositories.VisitorRepository, hashingService *HashingService) *VisitorService {
+	return &VisitorService{VisitorRepository: visitorRepository, HashingService: hashingService}
 }
 
-func (vs *VisitorService) CreateVisitorHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"message": "Visitor created"})
+func (vs *VisitorService) CreateVisitor(ipAddress string) {
+	hashedIPAdress := vs.HashingService.Hash(ipAddress)
+	vs.VisitorRepository.CreateVisitor(hashedIPAdress)
 }

@@ -4,16 +4,21 @@ import (
 	"net/http"
 
 	"github.com/MagnusHLund/VisitorCounter/internal/services"
+	"github.com/MagnusHLund/VisitorCounter/internal/utils"
 )
 
 type PageHandler struct {
-	PageService *services.PageService
+	RequestUtils   *utils.RequestUtils
+	PageService    *services.PageService
+	VisitorService *services.VisitorService
 }
 
-func NewPageHandler(pageService *services.PageService) *PageHandler {
-	return &PageHandler{PageService: pageService}
+func NewPageHandler(pageService *services.PageService, requestUtils *utils.RequestUtils, visitorService *services.VisitorService) *PageHandler {
+	return &PageHandler{PageService: pageService, RequestUtils: requestUtils, VisitorService: visitorService}
 }
 
-func (h *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Handle GET GET /page"))
+func (ph *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
+	const ip = ph.RequestUtils.GetIPAddress(r)
+	ph.VisitorService.CreateVisitor(ip)
+	ph.PageService.GetVisitorsForPage(w, r)
 }

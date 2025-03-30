@@ -9,6 +9,7 @@ import (
 	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
 	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 	"github.com/MagnusHLund/VisitorCounter/internal/services"
+	"github.com/MagnusHLund/VisitorCounter/internal/utils"
 
 	"github.com/google/wire"
 )
@@ -23,6 +24,7 @@ func CreateApp() (*App, error) {
 		services.NewVisitorService,
 		repositories.NewPageRepository,
 		repositories.NewVisitorRepository,
+		utils.NewRequestUtils,
 		NewApp,
 	)
 

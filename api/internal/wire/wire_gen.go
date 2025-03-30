@@ -12,6 +12,7 @@ import (
 	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
 	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
 	"github.com/MagnusHLund/VisitorCounter/internal/services"
+	"github.com/MagnusHLund/VisitorCounter/internal/utils"
 )
 
 // Injectors from wire.go:
@@ -25,9 +26,10 @@ func CreateApp() (*App, error) {
 	}
 	pageRepository := repositories.NewPageRepository(db)
 	pageService := services.NewPageService(pageRepository)
-	pageHandler := handlers.NewPageHandler(pageService)
+	requestUtils := utils.NewRequestUtils()
 	visitorRepository := repositories.NewVisitorRepository(db)
 	visitorService := services.NewVisitorService(visitorRepository)
-	app := NewApp(configConfig, pageHandler, pageService, visitorService, pageRepository, visitorRepository)
+	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService)
+	app := NewApp(configConfig, pageHandler, pageService, visitorService, pageRepository, visitorRepository, requestUtils)
 	return app, nil
 }
