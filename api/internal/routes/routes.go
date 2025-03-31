@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"github.com/MagnusHLund/VisitorCounter/internal/middleware"
-	"github.com/MagnusHLund/VisitorCounter/internal/wire"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/middleware"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/wire"
 
 	"github.com/go-chi/chi/v5"
 )

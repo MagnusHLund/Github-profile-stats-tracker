@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/MagnusHLund/VisitorCounter/internal/config"
-	"github.com/MagnusHLund/VisitorCounter/internal/models"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/config"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

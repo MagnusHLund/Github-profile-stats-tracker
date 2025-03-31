@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/MagnusHLund/VisitorCounter/internal/routes"
-	"github.com/MagnusHLund/VisitorCounter/internal/wire"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/routes"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/wire"
 )
 
 func main() {

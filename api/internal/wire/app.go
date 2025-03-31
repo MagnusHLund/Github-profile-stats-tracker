@@ -1,11 +1,11 @@
 package wire
 
 import (
-	"github.com/MagnusHLund/VisitorCounter/internal/config"
-	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
-	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
-	"github.com/MagnusHLund/VisitorCounter/internal/services"
-	"github.com/MagnusHLund/VisitorCounter/internal/utils"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/config"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/handlers"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/repositories"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/services"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/utils"
 )
 
 type App struct {

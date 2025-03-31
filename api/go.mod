@@ -1,4 +1,4 @@
-module github.com/MagnusHLund/VisitorCounter
+module github.com/MagnusHLund/Github-profile-stats-tracker
 
 go 1.24.1
 

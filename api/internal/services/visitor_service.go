@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/MagnusHLund/VisitorCounter/internal/repositories"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/repositories"
 )
 
 type VisitorService struct {

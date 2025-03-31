@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/MagnusHLund/VisitorCounter/internal/services"
-	"github.com/MagnusHLund/VisitorCounter/internal/utils"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/services"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/utils"
 )
 
 type PageHandler struct {
@@ -18,7 +18,7 @@ func NewPageHandler(pageService *services.PageService, requestUtils *utils.Reque
 }
 
 func (ph *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
-	const ip = ph.RequestUtils.GetIPAddress(r)
+	const ip = "" //ph.RequestUtils.GetIPAddress(r)
 	ph.VisitorService.CreateVisitor(ip)
 	ph.PageService.GetVisitorsForPage(w, r)
 }

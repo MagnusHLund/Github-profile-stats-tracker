@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/MagnusHLund/VisitorCounter/internal/handlers"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/handlers"
 
 	"github.com/go-chi/chi/v5"
 )

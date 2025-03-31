@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/MagnusHLund/VisitorCounter/internal/models"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models"
 	"gorm.io/gorm"
 )
 
