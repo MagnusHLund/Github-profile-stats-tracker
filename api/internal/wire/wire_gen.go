@@ -31,6 +31,7 @@ func CreateApp() (*App, error) {
 	hashingService := services.NewHashingService()
 	visitorService := services.NewVisitorService(visitorRepository, hashingService)
 	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService)
-	app := NewApp(configConfig, pageHandler, pageService, visitorService, pageRepository, visitorRepository, requestUtils)
+	imageService := services.NewImageService()
+	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils)
 	return app, nil
 }

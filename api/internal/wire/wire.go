@@ -23,6 +23,7 @@ func CreateApp() (*App, error) {
 		services.NewPageService,
 		services.NewVisitorService,
 		services.NewHashingService,
+		services.NewImageService,
 		repositories.NewPageRepository,
 		repositories.NewVisitorRepository,
 		utils.NewRequestUtils,

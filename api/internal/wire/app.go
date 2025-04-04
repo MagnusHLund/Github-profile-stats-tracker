@@ -26,7 +26,9 @@ type Handlers struct {
 
 type Services struct {
 	PageService    *services.PageService
+	ImageService   *services.ImageService
 	VisitorService *services.VisitorService
+	HashingService *services.HashingService
 }
 
 type Repositories struct {
@@ -43,6 +45,8 @@ func NewApp(
 	pageHandler *handlers.PageHandler,
 	pageService *services.PageService,
 	visitorService *services.VisitorService,
+	imageService *services.ImageService,
+	hashingService *services.HashingService,
 	pageRepository *repositories.PageRepository,
 	visitorRepository *repositories.VisitorRepository,
 	requestUtils *utils.RequestUtils,
@@ -56,7 +60,9 @@ func NewApp(
 		},
 		Services: &Services{
 			PageService:    pageService,
+			ImageService:   imageService,
 			VisitorService: visitorService,
+			HashingService: hashingService,
 		},
 		Repositories: &Repositories{
 			PageRepository:    pageRepository,
