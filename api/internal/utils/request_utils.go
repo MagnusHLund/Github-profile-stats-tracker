@@ -11,7 +11,7 @@ func NewRequestUtils() *RequestUtils {
 	return &RequestUtils{}
 }
 
-func GetIPAddress(r *http.Request) string {
+func (ru *RequestUtils) GetIPAddress(r *http.Request) string {
 	ip := r.Header.Get("X-Forwarded-For")
 	if ip == "" {
 		ip = r.RemoteAddr

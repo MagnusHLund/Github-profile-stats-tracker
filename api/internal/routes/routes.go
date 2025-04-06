@@ -21,5 +21,4 @@ func SetupRoutes(app *wire.App) *chi.Mux {
 
 func applyMiddleware(router *chi.Mux) {
 	router.Use(middleware.ExceptionMiddleware)
-	router.Use(middleware.JSONMiddleware)
 }

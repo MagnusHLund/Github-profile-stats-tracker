@@ -18,7 +18,7 @@ func NewPageHandler(pageService *services.PageService, requestUtils *utils.Reque
 }
 
 func (ph *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
-	const ip = "" //ph.RequestUtils.GetIPAddress(r)
+	ip := ph.RequestUtils.GetIPAddress(r)
 	ph.VisitorService.CreateVisitor(ip)
 	ph.PageService.GetVisitorsForPage(w, r)
 }
