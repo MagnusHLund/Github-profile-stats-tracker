@@ -1,6 +1,6 @@
 package models
 
 type Page struct {
-	PageId  uint   `gorm:"primaryKey"`
-	PageUrl string `gorm:"type:varchar(255);unique; not null"`
+	PageId               uint   `gorm:"primaryKey"`
+	PageOwnerGitUsername string `gorm:"type:varchar(39);unique; not null"`
 }

@@ -13,10 +13,14 @@ func NewPageRepository(db *gorm.DB) *PageRepository {
 	return &PageRepository{DB: db}
 }
 
-func (r *PageRepository) GetPageByURL(url string) (*models.Page, error) {
+func (r *PageRepository) GetPageByGitUsername(url string) (*models.Page, error) {
 	var page models.Page
 	if err := r.DB.Where("url = ?", url).First(&page).Error; err != nil {
 		return nil, err
 	}
 	return &page, nil
+}
+
+func (r *PageRepository) CreatePage(page *models.Page) error {
+	return r.DB.Create(page).Error
 }

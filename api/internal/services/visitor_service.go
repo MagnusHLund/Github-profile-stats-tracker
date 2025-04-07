@@ -6,6 +6,7 @@ import (
 
 type VisitorService struct {
 	VisitorRepository *repositories.VisitorRepository
+	PageService       *PageService
 	HashingService    *HashingService
 }
 
@@ -13,7 +14,12 @@ func NewVisitorService(visitorRepository *repositories.VisitorRepository, hashin
 	return &VisitorService{VisitorRepository: visitorRepository, HashingService: hashingService}
 }
 
-func (vs *VisitorService) CreateVisitor(ipAddress string) {
+func (vs *VisitorService) CreateVisitor(profilePage string, ipAddress string) {
+	page, err := vs.PageService.CreatePageIfNotExists(profilePage)
+	if err != nil {
+		return
+	}
+
 	hashedIPAdress := vs.HashingService.Hash(ipAddress)
-	vs.VisitorRepository.CreateVisitor(hashedIPAdress)
+	vs.VisitorRepository.CreateVisitorIfNotExistsForPage(page.PageId, hashedIPAdress)
 }

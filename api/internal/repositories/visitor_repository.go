@@ -13,8 +13,8 @@ func NewVisitorRepository(db *gorm.DB) *VisitorRepository {
 	return &VisitorRepository{DB: db}
 }
 
-func (r *VisitorRepository) CreateVisitor(hashedIPAdress string) error {
-	visitor := &models.Visitor{HashedIpAddress: hashedIPAdress}
+func (r *VisitorRepository) CreateVisitorIfNotExistsForPage(pageId uint, hashedIPAdress string) error {
+	visitor := &models.Visitor{PageId: pageId, HashedIpAddress: hashedIPAdress}
 	err := r.DB.Create(visitor).Error
 
 	if err != nil {
