@@ -8,6 +8,14 @@ import (
 
 type RequestUtils struct{}
 
+type queryParameters struct {
+	SVGType       *string
+	GradientStart *string
+	GradientEnd   *string
+	TextColor     *string
+	Text          *string
+}
+
 func NewRequestUtils() *RequestUtils {
 	return &RequestUtils{}
 }
@@ -22,7 +30,7 @@ func (ru *RequestUtils) GetIPAddress(r *http.Request) string {
 	return ip
 }
 
-func (ph *RequestUtils) GetPageOwnerGitUsername(r *http.Request) string {
+func (ru *RequestUtils) GetPageOwnerGitUsername(r *http.Request) string {
 	githubProfileURL, err := url.Parse(r.Referer())
 	if err != nil {
 		return ""
@@ -33,4 +41,22 @@ func (ph *RequestUtils) GetPageOwnerGitUsername(r *http.Request) string {
 		return ""
 	}
 	return pathSegments[1]
+}
+
+func (ru *RequestUtils) ParseQueryParameters(r *http.Request) *queryParameters {
+	query := r.URL.Query()
+
+	return &queryParameters{
+		GradientStart: getQueryValue(query, "gradientStart"),
+		GradientEnd:   getQueryValue(query, "gradientEnd"),
+		TextColor:     getQueryValue(query, "textColor"),
+		Text:          getQueryValue(query, "text"),
+	}
+}
+
+func getQueryValue(query url.Values, key string) *string {
+	if value, exists := query[key]; exists && len(value) > 0 {
+		return &value[0]
+	}
+	return nil
 }

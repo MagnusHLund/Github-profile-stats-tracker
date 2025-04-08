@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models/orm"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +14,7 @@ func NewVisitorRepository(db *gorm.DB) *VisitorRepository {
 }
 
 func (r *VisitorRepository) CreateVisitorIfNotExistsForPage(pageId uint, hashedIPAdress string) error {
-	visitor := &models.Visitor{PageId: pageId, HashedIpAddress: hashedIPAdress}
+	visitor := &orm.Visitor{PageId: pageId, HashedIpAddress: hashedIPAdress}
 	err := r.DB.Create(visitor).Error
 
 	if err != nil {
@@ -24,8 +24,8 @@ func (r *VisitorRepository) CreateVisitorIfNotExistsForPage(pageId uint, hashedI
 	return nil
 }
 
-func (r *VisitorRepository) GetVisitorCountByPage(page *models.Page) (uint, error) {
-	visitors := []*models.Visitor{}
+func (r *VisitorRepository) GetVisitorCountByPage(page *orm.Page) (uint, error) {
+	visitors := []*orm.Visitor{}
 	err := r.DB.Where("page_id = ?", page.PageId).Find(&visitors).Error
 
 	if err != nil {

@@ -20,6 +20,7 @@ func NewPageHandler(pageService *services.PageService, requestUtils *utils.Reque
 func (ph *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
 	profilePage := ph.RequestUtils.GetPageOwnerGitUsername(r)
 	ip := ph.RequestUtils.GetIPAddress(r)
+	
 
 	ph.VisitorService.CreateVisitor(profilePage, ip)
 	ph.PageService.GetVisitorsForPage(profilePage)

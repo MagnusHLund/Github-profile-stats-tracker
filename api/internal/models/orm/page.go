@@ -1,4 +1,4 @@
-package models
+package orm
 
 type Page struct {
 	PageId               uint   `gorm:"primaryKey"`

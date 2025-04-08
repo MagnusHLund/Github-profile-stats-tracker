@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/config"
-	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models/orm"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -57,8 +57,8 @@ func connectToDatabase(cfg *config.Config) (*gorm.DB, error) {
 
 func migrateDatabase(db *gorm.DB) error {
 	if err := db.AutoMigrate(
-		&models.Visitor{},
-		&models.Page{},
+		&orm.Visitor{},
+		&orm.Page{},
 	); err != nil {
 		log.Println("Failed to migrate database: ", err)
 		return err

@@ -32,6 +32,7 @@ func CreateApp() (*App, error) {
 	visitorService := services.NewVisitorService(visitorRepository, hashingService)
 	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService)
 	imageService := services.NewImageService()
-	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils)
+	svgUtils := utils.NewSvgUtils()
+	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils, svgUtils)
 	return app, nil
 }

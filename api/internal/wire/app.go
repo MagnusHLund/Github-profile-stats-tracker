@@ -38,6 +38,7 @@ type Repositories struct {
 
 type Utils struct {
 	RequestUtils *utils.RequestUtils
+	SvgUtils     *utils.SvgUtils
 }
 
 func NewApp(
@@ -50,6 +51,7 @@ func NewApp(
 	pageRepository *repositories.PageRepository,
 	visitorRepository *repositories.VisitorRepository,
 	requestUtils *utils.RequestUtils,
+	svgUtils *utils.SvgUtils,
 ) *App {
 	return &App{
 		Config: &Config{
@@ -70,6 +72,7 @@ func NewApp(
 		},
 		Utils: &Utils{
 			RequestUtils: requestUtils,
+			SvgUtils:     svgUtils,
 		},
 	}
 }

@@ -1,4 +1,4 @@
-package models
+package orm
 
 type Visitor struct {
 	VisitorId       uint   `gorm:"primaryKey"`

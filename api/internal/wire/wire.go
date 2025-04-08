@@ -27,6 +27,7 @@ func CreateApp() (*App, error) {
 		repositories.NewPageRepository,
 		repositories.NewVisitorRepository,
 		utils.NewRequestUtils,
+		utils.NewSvgUtils,
 		NewApp,
 	)
 
