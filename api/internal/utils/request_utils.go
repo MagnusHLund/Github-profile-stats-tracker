@@ -8,12 +8,13 @@ import (
 
 type RequestUtils struct{}
 
-type queryParameters struct {
-	SVGType       *string
+type QueryParameters struct {
+	SVGType       string
 	GradientStart *string
 	GradientEnd   *string
 	TextColor     *string
-	Text          *string
+	Width         *string
+	Height        *string
 }
 
 func NewRequestUtils() *RequestUtils {
@@ -43,14 +44,16 @@ func (ru *RequestUtils) GetPageOwnerGitUsername(r *http.Request) string {
 	return pathSegments[1]
 }
 
-func (ru *RequestUtils) ParseQueryParameters(r *http.Request) *queryParameters {
+func (ru *RequestUtils) ParseQueryParameters(r *http.Request) *QueryParameters {
 	query := r.URL.Query()
 
-	return &queryParameters{
+	return &QueryParameters{
+		SVGType:       *getQueryValue(query, "svgType"),
 		GradientStart: getQueryValue(query, "gradientStart"),
 		GradientEnd:   getQueryValue(query, "gradientEnd"),
 		TextColor:     getQueryValue(query, "textColor"),
-		Text:          getQueryValue(query, "text"),
+		Width:         getQueryValue(query, "width"),
+		Height:        getQueryValue(query, "height"),
 	}
 }
 
