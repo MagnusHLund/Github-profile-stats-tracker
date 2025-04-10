@@ -1,6 +1,7 @@
 package services
 
 import (
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models/svg"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/utils"
 )
 
@@ -12,13 +13,12 @@ func NewImageService() *ImageService {
 	return &ImageService{}
 }
 
-func (is *ImageService) GenerateImageForPage(statsType string) {
-	svgImage, err := s.svgUtils.LoadSVGFromFile(statsType)
+func (is *ImageService) GenerateVisitorCountImage(visitorCounterSVG svg.VisitorCounterSVG) []byte {
+	svgImage, err := is.svgUtils.LoadSVGFromFile(visitorCounterSVG.SVGType)
 	if err != nil {
-
-		return
+		return nil
 	}
 
-	// TODO
-	//is.svgUtils.ModifySVG(svgImage)
+	// Convert modifiedSVG to byte array and return
+	return []byte(svgImage)
 }

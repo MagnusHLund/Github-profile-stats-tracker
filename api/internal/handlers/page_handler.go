@@ -3,14 +3,16 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/mappers"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/services"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/utils"
 )
 
 type PageHandler struct {
-	RequestUtils   *utils.RequestUtils
-	PageService    *services.PageService
-	VisitorService *services.VisitorService
+	RequestUtils         *utils.RequestUtils
+	PageService          *services.PageService
+	VisitorService       *services.VisitorService
+	QueryParameterMapper *mappers.QueryParameterMapper
 }
 
 func NewPageHandler(pageService *services.PageService, requestUtils *utils.RequestUtils, visitorService *services.VisitorService) *PageHandler {
@@ -18,10 +20,13 @@ func NewPageHandler(pageService *services.PageService, requestUtils *utils.Reque
 }
 
 func (ph *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
-	profilePage := ph.RequestUtils.GetPageOwnerGitUsername(r)
+	profilePageOwner := ph.RequestUtils.GetPageOwnerGitUsername(r)
 	ip := ph.RequestUtils.GetIPAddress(r)
+	queryParameters := ph.RequestUtils.ParseQueryParameters(r)
 	
-
+	profilePage := ph.PageService.CreatePageIfNotExists(profilePageOwner)
 	ph.VisitorService.CreateVisitor(profilePage, ip)
-	ph.PageService.GetVisitorsForPage(profilePage)
+
+	svgOptions := ph.QueryParameterMapper.MapQueryParametersToAbstractSVG(queryParameters, "VisitorCount")
+	ph.PageService.GetVisitorsForPage(profilePage, svgOptions)
 }

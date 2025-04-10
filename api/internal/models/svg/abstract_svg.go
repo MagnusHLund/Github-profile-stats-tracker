@@ -1,22 +1,27 @@
 package svg
 
-import "encoding/xml"
-
 type IAbstractSVG interface {
+	GetSVGType() string
 }
 
 type AbstractSVG struct {
-	XMLName xml.Name `xml:"svg"`
-	Rect    struct {
-		Width  string `xml:"width,attr"`
-		Height string `xml:"height,attr"`
-	} `xml:"rect"`
-	Defs struct {
-		LinearGradient struct {
-			Stops []struct {
-				Offset string `xml:"offset,attr"`
-				Style  string `xml:"style,attr"`
-			} `xml:"stop"`
-		} `xml:"linearGradient"`
-	} `xml:"defs"`
+	SVGType   string
+	XMLName   string   `xml:"svg"`
+	Width     string   `xml:"width,attr"`
+	Height    string   `xml:"height,attr"`
+	Gradient  Gradient `xml:"defs>linearGradient"`
+	TextColor string   `xml:"style,attr"`
+}
+
+type Gradient struct {
+	Stops []Stop `xml:"stop"`
+}
+
+type Stop struct {
+	Offset    string `xml:"offset,attr"`
+	StopColor string `xml:"style,attr"`
+}
+
+func (a *AbstractSVG) GetSVGType() string {
+	return a.SVGType
 }

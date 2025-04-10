@@ -9,7 +9,6 @@ import (
 type RequestUtils struct{}
 
 type QueryParameters struct {
-	SVGType       string
 	GradientStart *string
 	GradientEnd   *string
 	TextColor     *string
@@ -48,7 +47,6 @@ func (ru *RequestUtils) ParseQueryParameters(r *http.Request) *QueryParameters {
 	query := r.URL.Query()
 
 	return &QueryParameters{
-		SVGType:       *getQueryValue(query, "svgType"),
 		GradientStart: getQueryValue(query, "gradientStart"),
 		GradientEnd:   getQueryValue(query, "gradientEnd"),
 		TextColor:     getQueryValue(query, "textColor"),

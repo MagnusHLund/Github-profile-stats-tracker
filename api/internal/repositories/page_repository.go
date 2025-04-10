@@ -13,9 +13,9 @@ func NewPageRepository(db *gorm.DB) *PageRepository {
 	return &PageRepository{DB: db}
 }
 
-func (r *PageRepository) GetPageByGitUsername(url string) (*orm.Page, error) {
+func (r *PageRepository) GetPageByGitUsername(gitUsername string) (*orm.Page, error) {
 	var page orm.Page
-	if err := r.DB.Where("url = ?", url).First(&page).Error; err != nil {
+	if err := r.DB.Where("page_owner_git_username = ?", gitUsername).First(&page).Error; err != nil {
 		return nil, err
 	}
 	return &page, nil

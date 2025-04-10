@@ -24,13 +24,14 @@ func (r *VisitorRepository) CreateVisitorIfNotExistsForPage(pageId uint, hashedI
 	return nil
 }
 
-func (r *VisitorRepository) GetVisitorCountByPage(page *orm.Page) (uint, error) {
+func (r *VisitorRepository) GetVisitorCountByPage(pageId uint) (uint, error) {
 	visitors := []*orm.Visitor{}
-	err := r.DB.Where("page_id = ?", page.PageId).Find(&visitors).Error
+	err := r.DB.Where("page_id = ?", pageId).Find(&visitors).Error
 
 	if err != nil {
 		return 0, err
 	}
 
-	return uint(len(visitors)), nil
+	visitorCount := uint(len(visitors))
+	return visitorCount, nil
 }

@@ -25,13 +25,13 @@ func CreateApp() (*App, error) {
 		return nil, err
 	}
 	pageRepository := repositories.NewPageRepository(db)
-	pageService := services.NewPageService(pageRepository)
-	requestUtils := utils.NewRequestUtils()
 	visitorRepository := repositories.NewVisitorRepository(db)
 	hashingService := services.NewHashingService()
 	visitorService := services.NewVisitorService(visitorRepository, hashingService)
-	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService)
 	imageService := services.NewImageService()
+	pageService := services.NewPageService(pageRepository, visitorService, imageService)
+	requestUtils := utils.NewRequestUtils()
+	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService)
 	svgUtils := utils.NewSvgUtils()
 	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils, svgUtils)
 	return app, nil

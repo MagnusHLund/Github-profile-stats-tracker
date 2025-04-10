@@ -10,7 +10,7 @@ func SetupPageRoutes(app *handlers.PageHandler) chi.Router {
 	router := chi.NewRouter()
 
 	// Use app's handler methods
-	router.Get("/{page}", app.GetVisitorsForPage)
+	router.Get("/", app.GetVisitorsForPage)
 
 	return router
 }

@@ -1,6 +1,7 @@
 package services
 
 import (
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/models/orm"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/repositories"
 )
 
@@ -14,12 +15,18 @@ func NewVisitorService(visitorRepository *repositories.VisitorRepository, hashin
 	return &VisitorService{VisitorRepository: visitorRepository, HashingService: hashingService}
 }
 
-func (vs *VisitorService) CreateVisitor(profilePage string, ipAddress string) {
-	page, err := vs.PageService.CreatePageIfNotExists(profilePage)
-	if err != nil {
-		return
-	}
+func (vs *VisitorService) CreateVisitor(profilePage *orm.Page, ipAddress string) {
 
 	hashedIPAdress := vs.HashingService.Hash(ipAddress)
-	vs.VisitorRepository.CreateVisitorIfNotExistsForPage(page.PageId, hashedIPAdress)
+	vs.VisitorRepository.CreateVisitorIfNotExistsForPage(profilePage.PageId, hashedIPAdress)
+}
+
+func (vs *VisitorService) GetVisitorCountForPage(profilePage *orm.Page) uint {
+	visitorCount, err := vs.VisitorRepository.GetVisitorCountByPage(profilePage.PageId)
+
+	if err != nil {
+		return 0
+	}
+
+	return visitorCount
 }
