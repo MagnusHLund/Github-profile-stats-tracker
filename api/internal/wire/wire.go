@@ -7,6 +7,7 @@ import (
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/config"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/database"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/handlers"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/mappers"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/repositories"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/services"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/utils"
@@ -28,6 +29,8 @@ func CreateApp() (*App, error) {
 		repositories.NewVisitorRepository,
 		utils.NewRequestUtils,
 		utils.NewSvgUtils,
+		utils.NewHelperUtils,
+		mappers.NewQueryParameterMapper,
 		NewApp,
 	)
 

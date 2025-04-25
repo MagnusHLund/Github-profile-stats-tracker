@@ -6,12 +6,13 @@ import (
 )
 
 type QueryParameterMapper struct {
-	queryParameters *utils.QueryParameters
-	helperUtils     *utils.HelperUtils
+	helperUtils *utils.HelperUtils
 }
 
-func NewQueryParameterMapper() *QueryParameterMapper {
-	return &QueryParameterMapper{}
+func NewQueryParameterMapper(helperUtils *utils.HelperUtils) *QueryParameterMapper {
+	return &QueryParameterMapper{
+		helperUtils: helperUtils,
+	}
 }
 
 func (q *QueryParameterMapper) MapQueryParametersToAbstractSVG(queryParameters *utils.QueryParameters, svgType string) svg.AbstractSVG {

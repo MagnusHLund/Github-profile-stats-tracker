@@ -15,15 +15,15 @@ type PageHandler struct {
 	QueryParameterMapper *mappers.QueryParameterMapper
 }
 
-func NewPageHandler(pageService *services.PageService, requestUtils *utils.RequestUtils, visitorService *services.VisitorService) *PageHandler {
-	return &PageHandler{PageService: pageService, RequestUtils: requestUtils, VisitorService: visitorService}
+func NewPageHandler(pageService *services.PageService, requestUtils *utils.RequestUtils, visitorService *services.VisitorService, queryParametersMapper *mappers.QueryParameterMapper) *PageHandler {
+	return &PageHandler{PageService: pageService, RequestUtils: requestUtils, VisitorService: visitorService, QueryParameterMapper: queryParametersMapper}
 }
 
 func (ph *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request) {
 	profilePageOwner := ph.RequestUtils.GetPageOwnerGitUsername(r)
 	ip := ph.RequestUtils.GetIPAddress(r)
 	queryParameters := ph.RequestUtils.ParseQueryParameters(r)
-	
+
 	profilePage := ph.PageService.CreatePageIfNotExists(profilePageOwner)
 	ph.VisitorService.CreateVisitor(profilePage, ip)
 

@@ -10,6 +10,7 @@ import (
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/config"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/database"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/handlers"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/mappers"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/repositories"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/services"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/utils"
@@ -31,8 +32,10 @@ func CreateApp() (*App, error) {
 	imageService := services.NewImageService()
 	pageService := services.NewPageService(pageRepository, visitorService, imageService)
 	requestUtils := utils.NewRequestUtils()
-	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService)
+	helperUtils := utils.NewHelperUtils()
+	queryParameterMapper := mappers.NewQueryParameterMapper(helperUtils)
+	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService, queryParameterMapper)
 	svgUtils := utils.NewSvgUtils()
-	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils, svgUtils)
+	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils, svgUtils, helperUtils, queryParameterMapper)
 	return app, nil
 }

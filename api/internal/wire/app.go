@@ -3,6 +3,7 @@ package wire
 import (
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/config"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/handlers"
+	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/mappers"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/repositories"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/services"
 	"github.com/MagnusHLund/Github-profile-stats-tracker/internal/utils"
@@ -14,6 +15,7 @@ type App struct {
 	Handlers     *Handlers
 	Repositories *Repositories
 	Utils        *Utils
+	Mappers      *Mappers
 }
 
 type Config struct {
@@ -39,6 +41,11 @@ type Repositories struct {
 type Utils struct {
 	RequestUtils *utils.RequestUtils
 	SvgUtils     *utils.SvgUtils
+	HelperUtils  *utils.HelperUtils
+}
+
+type Mappers struct {
+	QueryParameterMapper *mappers.QueryParameterMapper
 }
 
 func NewApp(
@@ -52,6 +59,8 @@ func NewApp(
 	visitorRepository *repositories.VisitorRepository,
 	requestUtils *utils.RequestUtils,
 	svgUtils *utils.SvgUtils,
+	helperUtils *utils.HelperUtils,
+	queryParameterMapper *mappers.QueryParameterMapper,
 ) *App {
 	return &App{
 		Config: &Config{
@@ -73,6 +82,10 @@ func NewApp(
 		Utils: &Utils{
 			RequestUtils: requestUtils,
 			SvgUtils:     svgUtils,
+			HelperUtils:  helperUtils,
+		},
+		Mappers: &Mappers{
+			QueryParameterMapper: queryParameterMapper,
 		},
 	}
 }
