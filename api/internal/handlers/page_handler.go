@@ -27,6 +27,6 @@ func (ph *PageHandler) GetVisitorsForPage(w http.ResponseWriter, r *http.Request
 	profilePage := ph.PageService.CreatePageIfNotExists(profilePageOwner)
 	ph.VisitorService.CreateVisitor(profilePage, ip)
 
-	svgOptions := ph.QueryParameterMapper.MapQueryParametersToAbstractSVG(queryParameters, "VisitorCount")
+	svgOptions := ph.QueryParameterMapper.MapQueryParametersToAbstractSVG(queryParameters, "VisitorCounter")
 	ph.PageService.GetVisitorsForPage(profilePage, svgOptions)
 }

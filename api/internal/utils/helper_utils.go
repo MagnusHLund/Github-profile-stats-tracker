@@ -1,7 +1,6 @@
 package utils
 
-type HelperUtils struct {
-}
+type HelperUtils struct{}
 
 func NewHelperUtils() *HelperUtils {
 	return &HelperUtils{}

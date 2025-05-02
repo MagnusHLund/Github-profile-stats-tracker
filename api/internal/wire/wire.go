@@ -30,6 +30,7 @@ func CreateApp() (*App, error) {
 		utils.NewRequestUtils,
 		utils.NewSvgUtils,
 		utils.NewHelperUtils,
+		utils.NewFileUtils,
 		mappers.NewQueryParameterMapper,
 		NewApp,
 	)

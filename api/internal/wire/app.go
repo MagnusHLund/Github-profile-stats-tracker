@@ -40,8 +40,9 @@ type Repositories struct {
 
 type Utils struct {
 	RequestUtils *utils.RequestUtils
-	SvgUtils     *utils.SvgUtils
+	SvgUtils     *utils.SVGUtils
 	HelperUtils  *utils.HelperUtils
+	FileUtils    *utils.FileUtils
 }
 
 type Mappers struct {
@@ -58,9 +59,11 @@ func NewApp(
 	pageRepository *repositories.PageRepository,
 	visitorRepository *repositories.VisitorRepository,
 	requestUtils *utils.RequestUtils,
-	svgUtils *utils.SvgUtils,
+	svgUtils *utils.SVGUtils,
 	helperUtils *utils.HelperUtils,
+	fileUtils *utils.FileUtils,
 	queryParameterMapper *mappers.QueryParameterMapper,
+
 ) *App {
 	return &App{
 		Config: &Config{
@@ -83,6 +86,7 @@ func NewApp(
 			RequestUtils: requestUtils,
 			SvgUtils:     svgUtils,
 			HelperUtils:  helperUtils,
+			FileUtils:    fileUtils,
 		},
 		Mappers: &Mappers{
 			QueryParameterMapper: queryParameterMapper,

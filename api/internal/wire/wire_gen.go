@@ -29,13 +29,14 @@ func CreateApp() (*App, error) {
 	visitorRepository := repositories.NewVisitorRepository(db)
 	hashingService := services.NewHashingService()
 	visitorService := services.NewVisitorService(visitorRepository, hashingService)
-	imageService := services.NewImageService()
+	fileUtils := utils.NewFileUtils()
+	svgUtils := utils.NewSvgUtils(fileUtils)
+	imageService := services.NewImageService(svgUtils)
 	pageService := services.NewPageService(pageRepository, visitorService, imageService)
 	requestUtils := utils.NewRequestUtils()
 	helperUtils := utils.NewHelperUtils()
 	queryParameterMapper := mappers.NewQueryParameterMapper(helperUtils)
 	pageHandler := handlers.NewPageHandler(pageService, requestUtils, visitorService, queryParameterMapper)
-	svgUtils := utils.NewSvgUtils()
-	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils, svgUtils, helperUtils, queryParameterMapper)
+	app := NewApp(configConfig, pageHandler, pageService, visitorService, imageService, hashingService, pageRepository, visitorRepository, requestUtils, svgUtils, helperUtils, fileUtils, queryParameterMapper)
 	return app, nil
 }

@@ -2,19 +2,20 @@ package utils
 
 import (
 	"encoding/xml"
-	"os"
 	"path/filepath"
 )
 
-type SvgUtils struct{}
-
-func NewSvgUtils() *SvgUtils {
-	return &SvgUtils{}
+type SVGUtils struct {
+	fileUtils *FileUtils
 }
 
-func (su *SvgUtils) LoadSVGFromFile(svgType string) (string, error) {
-	filePath := filepath.Join("assets", "images", svgType+".svg")
-	data, err := os.ReadFile(filePath)
+func NewSvgUtils(fileUtils *FileUtils) *SVGUtils {
+	return &SVGUtils{fileUtils: fileUtils}
+}
+
+func (su *SVGUtils) LoadSVGFromFile(svgType string) (string, error) {
+	filePathFromRoot := filepath.Join("internal", "assets", "svgs", svgType+".svg")
+	data, err := su.fileUtils.ReadFile(filePathFromRoot)
 	if err != nil {
 		return "", err
 	}

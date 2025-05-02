@@ -6,11 +6,11 @@ import (
 )
 
 type ImageService struct {
-	svgUtils *utils.SvgUtils
+	svgUtils *utils.SVGUtils
 }
 
-func NewImageService() *ImageService {
-	return &ImageService{}
+func NewImageService(svgUtils *utils.SVGUtils) *ImageService {
+	return &ImageService{svgUtils: svgUtils}
 }
 
 func (is *ImageService) GenerateVisitorCountImage(visitorCounterSVG svg.VisitorCounterSVG) []byte {
@@ -18,6 +18,8 @@ func (is *ImageService) GenerateVisitorCountImage(visitorCounterSVG svg.VisitorC
 	if err != nil {
 		return nil
 	}
+
+	
 
 	// Convert modifiedSVG to byte array and return
 	return []byte(svgImage)

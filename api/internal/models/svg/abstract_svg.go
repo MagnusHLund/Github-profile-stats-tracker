@@ -2,6 +2,7 @@ package svg
 
 type IAbstractSVG interface {
 	GetSVGType() string
+	GenerateSVG() string
 }
 
 type AbstractSVG struct {
